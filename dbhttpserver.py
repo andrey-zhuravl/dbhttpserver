@@ -16,13 +16,14 @@ class Person:
 
 
 class MyServer(BaseHTTPRequestHandler):
-    def tableUser(self):
+
+    def tableUser(self, nameTable, postBody):
         pass
 
-    def tableProduct(self):
+    def tableProduct(self, nameTable, postBody):
         pass
 
-    def tableOrder(self):
+    def tableOrder(self, nameTable, postBody):
         pass
 
     def do_GET(self):
@@ -30,9 +31,10 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.end_headers()
 
-        message = "Server working!"
-
-        self.wfile.write(bytes(message, "utf-8"))
+        # ввел этот блок для проверки через браузер, или Insomnia
+        path = "users/user_name"
+        nameTable = path.split("/", maxsplit=1)
+        self.wfile.write(bytes(nameTable[0]*9, "utf-8"))
 
         return
 
@@ -41,18 +43,21 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.end_headers()
 
-        txt = "postgres.public.users"
-        x = txt.split("#", 1)
+        postBody = 15
+        path = "users/user_name"
+        nameTable = path.split("/", maxsplit=1)
 
-        content_length = int(self.headers['Content-Length'])
+        if nameTable[0] == "users":
+            self.tableUser(nameTable[1], postBody)
+        elif nameTable[0] == "product":
+            self.tableProduct(nameTable[1], postBody)
+        elif nameTable[0] == "order":
+            self.tableOrder(nameTable[1], postBody)
+
+        content_length = int(self.headers["Content-Length"])
         body = self.rfile.read(content_length)
 
-
         self.wfile.write(bytes("message", "utf-8"))
-
-
-
-
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
