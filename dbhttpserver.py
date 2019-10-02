@@ -5,7 +5,7 @@ import time
 import json
 
 hostName = "localhost"
-hostPort = 8081
+hostPort = 9920
 
 
 class Person:
@@ -15,27 +15,50 @@ class Person:
         self.attribute = kwargs or None
 
 
+class MyController:
+    def __init__(self):
+        pass
+
+    def tableUsers(self, nameTable):
+        nameCollumn = nameTable[0]
+        newNameUser = nameTable[1]
+        print("nameCollumn = ", nameCollumn)
+        print("newNameUser = ", newNameUser)
+
+
+    def tableProduct(self, nameTable):
+        nameCollumn = nameTable[0]
+        newNameUser = nameTable[1]
+        print("nameCollumn = ", nameCollumn)
+        print("newNameUser = ", newNameUser)
+
+    def tableOrder(self, nameTable):
+        nameCollumn = nameTable[0]
+        newOrder = nameTable[1]
+        print("nameCollumn = ", nameCollumn)
+        print("newOrder = ", newOrder)
+
+    def selectNameTable(self, body):    # должно быть nameTable[0]
+        nameTable = body.split("/")  # предполагается формат body - table/collumn/value
+        print("nameTable = ", nameTable)                                # т.е. будет nameTable["table", "collumn", value(int или str)]
+
+        if nameTable[0] == "users":
+            self.tableUsers(nameTable[1:])
+            print("первый elif - users = ", nameTable)
+        elif nameTable[0] == "product":
+            self.tableProduct(nameTable[1:])
+            print("второй elif - product = ", nameTable)
+        elif nameTable[0] == "order":
+            self.tableOrder(nameTable[1:])
+            print("третий elif - order = ", nameTable)
+
+
 class MyServer(BaseHTTPRequestHandler):
-
-    def tableUser(self, nameTable, postBody):
-        pass
-
-    def tableProduct(self, nameTable, postBody):
-        pass
-
-    def tableOrder(self, nameTable, postBody):
-        pass
 
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-
-        # ввел этот блок для проверки через браузер, или Insomnia
-        path = "users/user_name"
-        nameTable = path.split("/", maxsplit=1)
-        self.wfile.write(bytes(nameTable[0]*9, "utf-8"))
-
         return
 
     def do_POST(self):
@@ -43,19 +66,14 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.end_headers()
 
-        postBody = 15
-        path = "users/user_name"
-        nameTable = path.split("/", maxsplit=1)
+        cont_len = int(self.headers["Content-Length"])
+        body = str(self.rfile.read(cont_len))[2:]
 
-        if nameTable[0] == "users":
-            self.tableUser(nameTable[1], postBody)
-        elif nameTable[0] == "product":
-            self.tableProduct(nameTable[1], postBody)
-        elif nameTable[0] == "order":
-            self.tableOrder(nameTable[1], postBody)
+        print("body = ", body)
+        print("type(body) = ", type(body))
 
-        content_length = int(self.headers["Content-Length"])
-        body = self.rfile.read(content_length)
+        nameTable = MyController()
+        nameTable.selectNameTable(body)
 
         self.wfile.write(bytes("message", "utf-8"))
 
@@ -70,3 +88,10 @@ except KeyboardInterrupt:
 
 myServer.server_close()
 print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
+
+# print("body = ", body)
+# print("cont_len_int = ", cont_len_int)
+# print("type(cont_len_int) = ", type(cont_len_int))
+#
+# print("cont_len_str = ", cont_len_str)
+# print("type(cont_len_str) = ", type(cont_len_str))
