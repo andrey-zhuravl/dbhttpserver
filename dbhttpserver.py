@@ -22,21 +22,14 @@ class MyController:
     def tableUsers(self, nameTable):
         nameCollumn = nameTable[0]
         newNameUser = nameTable[1]
-        print("nameCollumn = ", nameCollumn)
-        print("newNameUser = ", newNameUser)
-
 
     def tableProduct(self, nameTable):
         nameCollumn = nameTable[0]
         newNameUser = nameTable[1]
-        print("nameCollumn = ", nameCollumn)
-        print("newNameUser = ", newNameUser)
 
     def tableOrder(self, nameTable):
         nameCollumn = nameTable[0]
         newOrder = nameTable[1]
-        print("nameCollumn = ", nameCollumn)
-        print("newOrder = ", newOrder)
 
     def selectNameTable(self, body):    # должно быть nameTable[0]
         nameTable = body.split("/")  # предполагается формат body - table/collumn/value
@@ -44,13 +37,10 @@ class MyController:
 
         if nameTable[0] == "users":
             self.tableUsers(nameTable[1:])
-            print("первый elif - users = ", nameTable)
         elif nameTable[0] == "product":
             self.tableProduct(nameTable[1:])
-            print("второй elif - product = ", nameTable)
         elif nameTable[0] == "order":
             self.tableOrder(nameTable[1:])
-            print("третий elif - order = ", nameTable)
 
 
 class MyServer(BaseHTTPRequestHandler):
@@ -67,10 +57,7 @@ class MyServer(BaseHTTPRequestHandler):
         self.end_headers()
 
         cont_len = int(self.headers["Content-Length"])
-        body = str(self.rfile.read(cont_len))[2:]
-
-        print("body = ", body)
-        print("type(body) = ", type(body))
+        body = str(self.rfile.read(cont_len))[2:] # body из Insomnia приходит в виде битовых данных
 
         nameTable = MyController()
         nameTable.selectNameTable(body)
