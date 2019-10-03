@@ -22,14 +22,20 @@ class MyController:
     def tableUsers(self, nameTable):
         nameCollumn = nameTable[0]
         newNameUser = nameTable[1]
+        print("nameCollumn = ", nameCollumn)
+        print("newNameUser = ", newNameUser)
 
     def tableProduct(self, nameTable):
         nameCollumn = nameTable[0]
-        newNameUser = nameTable[1]
+        newProduct = nameTable[1]
+        print("nameCollumn = ", nameCollumn)
+        print("newNameUser = ", newProduct)
 
     def tableOrder(self, nameTable):
         nameCollumn = nameTable[0]
         newOrder = nameTable[1]
+        print("nameCollumn = ", nameCollumn)
+        print("newNameUser = ", newOrder)
 
     def selectNameTable(self, body):    # должно быть nameTable[0]
         nameTable = body.split("/")  # предполагается формат body - table/collumn/value
@@ -64,7 +70,6 @@ class MyServer(BaseHTTPRequestHandler):
 
         self.wfile.write(bytes("message", "utf-8"))
 
-
 myServer = HTTPServer((hostName, hostPort), MyServer)
 print(time.asctime(), "Server Starts - %s:%s" % (hostName, hostPort))
 
@@ -75,10 +80,3 @@ except KeyboardInterrupt:
 
 myServer.server_close()
 print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
-
-# print("body = ", body)
-# print("cont_len_int = ", cont_len_int)
-# print("type(cont_len_int) = ", type(cont_len_int))
-#
-# print("cont_len_str = ", cont_len_str)
-# print("type(cont_len_str) = ", type(cont_len_str))
