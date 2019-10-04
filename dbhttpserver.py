@@ -9,13 +9,6 @@ hostName = "localhost"
 hostPort = 9920
 
 
-class Person:
-    def __init__(self, name, age, **kwargs):
-        self.name = name
-        self.age = age
-        self.attribute = kwargs or None
-
-
 class MyController:
     def __init__(self):
         pass
@@ -38,9 +31,9 @@ class MyController:
         print("nameCollumn = ", nameCollumn)
         print("newNameUser = ", newOrder)
 
-    def selectNameTable(self, body):        # должно быть nameTable[0]
-        nameTable = body.split("/")         # предполагается формат body - table/collumn/value
-        print("nameTable = ", nameTable)    # т.е. будет nameTable["table", "collumn", value(int или str)]
+    def selectNameTable(self, body):
+        nameTable = body.split("/")
+        print("nameTable = ", nameTable)
 
         if nameTable[0] == "users":
             self.tableUsers(nameTable[1:])
@@ -68,11 +61,11 @@ class MyServer(BaseHTTPRequestHandler):
         print("path = ", path)
         print("body = ", body)
 
-
         # nameTable = MyController()
         # nameTable.selectNameTable(body)
 
         self.wfile.write(bytes("message", "utf-8"))
+
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
 print(time.asctime(), "Server Starts - %s:%s" % (hostName, hostPort))
