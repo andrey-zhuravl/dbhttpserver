@@ -3,6 +3,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 import json
+from io import BytesIO
 
 hostName = "localhost"
 hostPort = 9920
@@ -37,9 +38,9 @@ class MyController:
         print("nameCollumn = ", nameCollumn)
         print("newNameUser = ", newOrder)
 
-    def selectNameTable(self, body):    # должно быть nameTable[0]
-        nameTable = body.split("/")  # предполагается формат body - table/collumn/value
-        print("nameTable = ", nameTable)                                # т.е. будет nameTable["table", "collumn", value(int или str)]
+    def selectNameTable(self, body):        # должно быть nameTable[0]
+        nameTable = body.split("/")         # предполагается формат body - table/collumn/value
+        print("nameTable = ", nameTable)    # т.е. будет nameTable["table", "collumn", value(int или str)]
 
         if nameTable[0] == "users":
             self.tableUsers(nameTable[1:])
@@ -50,7 +51,6 @@ class MyController:
 
 
 class MyServer(BaseHTTPRequestHandler):
-
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
@@ -61,12 +61,16 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-
         cont_len = int(self.headers["Content-Length"])
-        body = str(self.rfile.read(cont_len))[2:] # body из Insomnia приходит в виде битовых данных
 
-        nameTable = MyController()
-        nameTable.selectNameTable(body)
+        body = self.rfile.read(cont_len)
+        path = self.path
+        print("path = ", path)
+        print("body = ", body)
+
+
+        # nameTable = MyController()
+        # nameTable.selectNameTable(body)
 
         self.wfile.write(bytes("message", "utf-8"))
 
