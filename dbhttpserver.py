@@ -31,15 +31,15 @@ class MyController:
         print("nameCollumn = ", nameCollumn)
         print("newNameUser = ", newOrder)
 
-    def selectNameTable(self, body):
-        nameTable = body.split("/")
+    def selectNameTable(self, path):
+        nameTable = path.split("/")
         print("nameTable = ", nameTable)
 
-        if nameTable[0] == "users":
+        if nameTable[1] == "users":
             self.tableUsers(nameTable[1:])
-        elif nameTable[0] == "product":
+        elif nameTable[1] == "product":
             self.tableProduct(nameTable[1:])
-        elif nameTable[0] == "order":
+        elif nameTable[1] == "order":
             self.tableOrder(nameTable[1:])
 
 
@@ -61,8 +61,8 @@ class MyServer(BaseHTTPRequestHandler):
         print("path = ", path)
         print("body = ", body)
 
-        # nameTable = MyController()
-        # nameTable.selectNameTable(body)
+        nameTable = MyController()
+        nameTable.selectNameTable(path)
 
         self.wfile.write(bytes("message", "utf-8"))
 

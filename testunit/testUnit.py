@@ -1,7 +1,7 @@
 import unittest
 # from http.server import BaseHTTPRequestHandler, HTTPServer
 from fixtures import fixtures as fx
-from dbhttpserver.dbhttpserver import *
+# from dbhttpserver.dbhttpserver import *
 import requests
 
 class myTestHTTPRequests(unittest.TestCase):
@@ -13,14 +13,14 @@ class myTestHTTPRequests(unittest.TestCase):
     #     print(myURL)
     #     self.assertEqual(req.url, myURL)
 
-    def test_reuestsToHTTPServerCODE200(self):
+    def test_requestsToHTTPServerCODE200(self):
         (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID()
-        myServer = MyServer()
+        # myServer = MyServer()
         req = requests.post(myURL, myData)
 
         print(req.status_code)
         print(codeSuccessful)
-        print(myServer.do_POST())
+        # print(myServer.do_POST())
 
         self.assertEqual(req.status_code, codeSuccessful)
     #
