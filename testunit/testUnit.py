@@ -14,7 +14,7 @@ class myTestHTTPRequests(unittest.TestCase):
     #     self.assertEqual(req.url, myURL)
 
     def test_requestsToHTTPServerCODE200(self):
-        (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID()
+        (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID(9)
         # myServer = MyServer()
         req = requests.post(myURL, myData)
 

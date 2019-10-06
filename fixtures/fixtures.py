@@ -1,5 +1,5 @@
-def fixturePostUserID():
-    myURL = "localhost:9920"
+def fixturePostUserID(id):
+    myURL = "http://localhost:9920/users/update/"+str(id)
     myData = {"user_name": "userNewName", "id_city": 5}
     myHeader = {"Content-type": "application/json", "Accept": "text/plain"}
     codeSuccessful = 200

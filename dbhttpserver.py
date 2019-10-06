@@ -43,11 +43,14 @@ class MyController:
             self.tableOrder(nameTable[1:])
 
 
+
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
+
+
         return
 
     def do_POST(self):
@@ -64,7 +67,7 @@ class MyServer(BaseHTTPRequestHandler):
         nameTable = MyController()
         nameTable.selectNameTable(path)
 
-        self.wfile.write(bytes("message", "utf-8"))
+        self.wfile.write(bytes("message1", "utf-8"))
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
