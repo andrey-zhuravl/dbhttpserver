@@ -2,52 +2,84 @@
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
+from dao import DAO
 import json
 from io import BytesIO
 
 hostName = "localhost"
 hostPort = 9920
 
-
 class MyController:
     def __init__(self):
         pass
+        self.dataAccess = DAO()
 
-    def tableUsers(self, nameTable):
-        nameCollumn = nameTable[0]
-        newNameUser = nameTable[1]
-        print("nameCollumn = ", nameCollumn)
-        print("newNameUser = ", newNameUser)
+    def userInsert(self, userID):
+        self.dataAccess.insertData(userID)
 
-    def tableProduct(self, nameTable):
-        nameCollumn = nameTable[0]
-        newProduct = nameTable[1]
-        print("nameCollumn = ", nameCollumn)
-        print("newNameUser = ", newProduct)
+    def userUpdate(self, userID):
+        self.dataAccess.updateData(userID)
 
-    def tableOrder(self, nameTable):
-        nameCollumn = nameTable[0]
-        newOrder = nameTable[1]
-        print("nameCollumn = ", nameCollumn)
-        print("newNameUser = ", newOrder)
+    def userSelect(self, userID):
+        self.dataAccess.selectData(userID)
+
+    def userDelete(self, userID):
+        self.dataAccess.deleteData(userID)
+
 
     def selectNameTable(self, path):
-        nameTable = path.split("/")
-        print("nameTable = ", nameTable)
+        requestToDB = path.split("/")
 
-        if nameTable[1] == "users":
-            self.tableUsers(nameTable[1:])
-        elif nameTable[1] == "product":
-            self.tableProduct(nameTable[1:])
-        elif nameTable[1] == "order":
-            self.tableOrder(nameTable[1:])
+        if requestToDB[1] == "users":
+            userID = requestToDB[3]
+            if requestToDB[2] == "insert":
+                self.userInsert(userID)
+            elif requestToDB[2] == "update":
+                self.userUpdate(userID)
+            elif requestToDB[2] == "select":
+                self.userSelect(userID)
+            elif requestToDB[2] == "delete":
+                self.userDelete(userID)
+
+        if requestToDB[1] == "product":
+            if requestToDB[2] == "insert":
+
+            elif requestToDB[2] == "update":
+
+            elif requestToDB[2] == "select":
+
+            elif requestToDB[2] == "delete":
+                ;
+        if requestToDB[1] == "order":
+            if requestToDB[2] == "insert":
+            elif requestToDB[2] == "update":
+            elif requestToDB[2] == "select":
+            elif requestToDB[2] == "delete":
+
+    def openDB(self):
+        pass
+
+    def dropCollumn(self):
+        pass
+
+    def dropTable(self):
+        pass
+
+    def addCollumn(self):
+        pass
+
 
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
-        self.wfile.write(bytes("messageget", "utf-8"))
         self.end_headers()
+
+        path = self.path
+
+        myController = MyController()
+        myController.selectNameTable(path, None)
+        print("из метода get path = ", path)
 
         return
 
@@ -55,18 +87,14 @@ class MyServer(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        cont_len = int(self.headers["Content-Length"])
 
+        cont_len = int(self.headers["Content-Length"])
         body = self.rfile.read(cont_len)
         path = self.path
 
-        print("path = ", path)
-        print("body = ", body)
-
-        nameTable = MyController()
-        nameTable.selectNameTable(path)
-
-        self.wfile.write(bytes("message1", "utf-8"))
+        myController = MyController()
+        myController.requestToDB(path, body)
+        self.wfile.write(bytes(path, "utf-8"))
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
@@ -79,3 +107,5 @@ except KeyboardInterrupt:
 
 myServer.server_close()
 print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
+
+
