@@ -5,31 +5,17 @@ from fixtures import fixtures as fx
 import requests
 
 class myTestHTTPRequests(unittest.TestCase):
-    #
-    # def test_reuestsToHTTPServerURL(self):
-    #     (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID()
-    #     # my = MyServer()
-    #     req = requests.post(myURL, myData)
-    #     print(myURL)
-    #     self.assertEqual(req.url, myURL)
-
     def test_requestsToHTTPServerCODE200(self):
         (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID(9)
-        # myServer = MyServer()
         req = requests.post(myURL, myData)
-
-        print(req.status_code)
-        print(codeSuccessful)
-        # print(myServer.do_POST())
-
         self.assertEqual(req.status_code, codeSuccessful)
-    #
-    # def test_reuestsToHTTPServerJSON(self):
-    #     (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID()
-    #     myServer = MyServer()
-    #     print(myServer.do_POST())
-    #     req = requests.post(myURL, myData)
-    #     self.assertEqual(req.json, myData)
+
+    def test_reuestsToHTTPServerJSON(self):
+        (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID(9)
+        req = requests.post(myURL, myData)
+        self.assertEqual(req.status_code, codeSuccessful)
+        req = requests.post(myURL, myData)
+        self.assertEqual(req.json, myData)
 
         # r.status_code
         # r.json()

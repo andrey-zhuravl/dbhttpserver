@@ -42,14 +42,12 @@ class MyController:
         elif nameTable[1] == "order":
             self.tableOrder(nameTable[1:])
 
-
-
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
+        self.wfile.write(bytes("messageget", "utf-8"))
         self.end_headers()
-
 
         return
 
@@ -61,6 +59,7 @@ class MyServer(BaseHTTPRequestHandler):
 
         body = self.rfile.read(cont_len)
         path = self.path
+
         print("path = ", path)
         print("body = ", body)
 
