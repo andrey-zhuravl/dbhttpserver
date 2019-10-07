@@ -3,6 +3,7 @@ import unittest
 from fixtures import fixtures as fx
 from dbhttpserver.dbhttpserver import MyController
 import requests
+from dao import DAO
 
 
 class myTestHTTPServer(unittest.TestCase):
@@ -16,7 +17,9 @@ class myTestHTTPServer(unittest.TestCase):
         (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostURL(9)
         req = requests.post(myURL, myData)
         print(req.url)
+        nameID = DAO()
         self.assertEqual(req.url, myURL)
+        self.assertEqual(req.url, nameID.insertData(req.url[3]))
     #
     # def test_requestsToHTTPServerCODE200(self):
     #     (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID(9)

@@ -9,6 +9,7 @@ from io import BytesIO
 hostName = "localhost"
 hostPort = 9920
 
+
 class MyController:
     def __init__(self):
         pass
@@ -26,39 +27,41 @@ class MyController:
     def userDelete(self, userID):
         self.dataAccess.deleteData(userID)
 
+    def requestsToDB(self, path, body):
+        request = path.split("/")
+        data = json.dumps(body)
+        print("data - body.json() = ", data)
+        print("тип данных - body.json() = ", type(data))
 
-    def selectNameTable(self, path):
-        requestToDB = path.split("/")
-
-        if requestToDB[1] == "users":
-            userID = requestToDB[3]
-            if requestToDB[2] == "insert":
+        if request[1] == "users":
+            userID = request[3]
+            if request[2] == "insert":
                 self.userInsert(userID)
-            elif requestToDB[2] == "update":
+            elif request[2] == "update":
                 self.userUpdate(userID)
-            elif requestToDB[2] == "select":
+            elif request[2] == "select":
                 self.userSelect(userID)
-            elif requestToDB[2] == "delete":
+            elif request[2] == "delete":
                 self.userDelete(userID)
 
-        if requestToDB[1] == "product":
-            if requestToDB[2] == "insert":
-
-            elif requestToDB[2] == "update":
-
-            elif requestToDB[2] == "select":
-
-            elif requestToDB[2] == "delete":
-
-        if requestToDB[1] == "order":
-            if requestToDB[2] == "insert":
-
-;
-            elif requestToDB[2] == "update":
-
-;
-            elif requestToDB[2] == "select":
-            elif requestToDB[2] == "delete":
+    #
+    #     if request[1] == "product":
+    #         if request[2] == "insert":
+    #
+    #         elif request[2] == "update":
+    #
+    #         elif request[2] == "select":
+    #
+    #         elif request[2] == "delete":
+    #
+    #     if request[1] == "order":
+    #         if request[2] == "insert":
+    #
+    #         elif request[2] == "update":
+    #
+    #         elif request[2] == "select":
+    #
+    #         elif request[2] == "delete":
 
     def openDB(self):
         pass
@@ -82,10 +85,8 @@ class MyServer(BaseHTTPRequestHandler):
         path = self.path
 
         myController = MyController()
-        myController.selectNameTable(path, None)
+        myController.requestsToDB(path, None)
         print("из метода get path = ", path)
-
-        return
 
     def do_POST(self):
         self.send_response(200)
@@ -93,11 +94,13 @@ class MyServer(BaseHTTPRequestHandler):
         self.end_headers()
 
         cont_len = int(self.headers["Content-Length"])
-        body = self.rfile.read(cont_len)
+        bodyBytes = self.rfile.read(cont_len)
+        bodyJson = json.loads(bodyBytes)
+        print("boduJson = ", bodyJson)
         path = self.path
 
         myController = MyController()
-        myController.requestToDB(path, body)
+        myController.requestsToDB(path, bodyJson)
         self.wfile.write(bytes(path, "utf-8"))
 
 
@@ -111,5 +114,3 @@ except KeyboardInterrupt:
 
 myServer.server_close()
 print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
-
-

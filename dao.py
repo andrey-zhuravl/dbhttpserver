@@ -17,9 +17,11 @@ class DAO:
         pass
 
     def insertData(self, nameID):
+        print("THIS IS DAO - insertData, nameID = ", nameID)
         # ins = db_traindb.prepare("INSERT INTO users (user_name) VALUES ($1)")
         # for i in range(1,4,1):
         #     ins("Marko"+str(i))
+        return nameID
         pass
 
     def updateData(self, nameID):
