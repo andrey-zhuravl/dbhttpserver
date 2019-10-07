@@ -49,10 +49,14 @@ class MyController:
             elif requestToDB[2] == "select":
 
             elif requestToDB[2] == "delete":
-                ;
+
         if requestToDB[1] == "order":
             if requestToDB[2] == "insert":
+
+;
             elif requestToDB[2] == "update":
+
+;
             elif requestToDB[2] == "select":
             elif requestToDB[2] == "delete":
 
