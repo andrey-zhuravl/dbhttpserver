@@ -1,7 +1,7 @@
 import unittest
 # from http.server import BaseHTTPRequestHandler, HTTPServer
 from fixtures import fixtures as fx
-from dbhttpserver.dbhttpserver import MyController
+from mycontroller import MyController
 import requests
 from dao import DAO
 
@@ -10,16 +10,17 @@ class myTestHTTPServer(unittest.TestCase):
     def test_HTTPServerCODE200(self):
         (myURL, myData, codeSuccessful) = fx.fixturePostStatusCode(9)
         req = requests.post(myURL, myData)
+        # responseFromHTTP = MyController
         print(req.status_code)
         self.assertEqual(req.status_code, codeSuccessful)
 
-    def test_HTTPServerURL(self):
-        (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostURL(9)
-        req = requests.post(myURL, myData)
-        print(req.url)
-        nameID = DAO()
-        self.assertEqual(req.url, myURL)
-        self.assertEqual(req.url, nameID.insertData(req.url[3]))
+    # def test_HTTPServerURL(self):
+    #     (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostURL(9)
+    #     req = requests.post(myURL, myData)
+    #     print(req.url)
+    #     nameID = DAO()
+    #     self.assertEqual(req.url, myURL)
+    #     self.assertEqual(req.url, nameID.insertData(req.url[3]))
     #
     # def test_requestsToHTTPServerCODE200(self):
     #     (myURL, myData, myHeader, codeSuccessful) = fx.fixturePostUserID(9)
