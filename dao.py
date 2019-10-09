@@ -10,21 +10,22 @@ class DAO:
 
     def __init__(self):
         pass
-
-    def openDB(self, DBName):
-        # db_traindb = postgresql.open('pq://postgres:postgres@localhost:5432/'+'DBName')
-        # db_neurodb = postgresql.open('pq://postgres:postgres@localhost:5432/'+'DBName')
-        pass
+    # def openDB(self, DBName):
+    #     # db_traindb = postgresql.open('pq://postgres:postgres@localhost:5432/'+'DBName')
+    #     # db_neurodb = postgresql.open('pq://postgres:postgres@localhost:5432/'+'DBName')
+    #     pass
 
     def insertData(self, nameID):
-        print("THIS IS DAO - insertData, nameID = ", nameID)
+        print("THIS IS DAO - InsertData, nameID = ", nameID)
         # ins = db_traindb.prepare("INSERT INTO users (user_name) VALUES ($1)")
         # for i in range(1,4,1):
         #     ins("Marko"+str(i))
-        return nameID
-        pass
+        # return nameID
+        # pass
 
     def updateData(self, nameID):
+        print("THIS IS DAO - UpdateData, nameID = ", nameID)
+
         # update = db_traindb.prepare("UPDATE city SET id_country = $2 WHERE city = $1")
         # update("Toronto", 55)
         # update("Palermo", 56)
@@ -37,52 +38,52 @@ class DAO:
         #     update("Ramses" + str(i), 2000 * i)
         # for i in range(1, 5, 1):
         #     update("Daniel" + str(i), 1000 * i)
-        pass
+        # pass
 
-    def selectData(self, nameID):
-        # sel = db_traindb.query("SELECT * FROM public.users")
-
-        # sel = db_traindb.query("SELECT users.user_name AS usr, users.salary, city.city AS ct, country.country AS cntr "
-        #                        "FROM public.users "
-        #                        "LEFT OUTER JOIN city ON users.id_city = city.id "
-        #                        "LEFT OUTER JOIN country ON city.id_country = country.id "
-        #                        "ORDER BY salary;")
-        # print(db_traindb.query('select * from country'))
-
-        # print(db_traindb.query("SELECT * FROM public.country AS cnt, public.city AS ct, public.users AS usr "
-        #                          "WHERE (cnt.id = ct.id_country AND usr.id_city = ct.id)"))
-
-        # sel = db_traindb.query("SELECT country, city, user_name, salary "
-        #                        "FROM public.country AS cnt, public.city AS ct, public.users AS usr "
-        #                        "WHERE cnt.id = ct.id_country AND ct.id = usr.id_city "
-        #                        "ORDER BY user_name")
-        pass
-
-    def deleteData(self, nameID):
-        # delete = db_traindb.prepare("DELETE FROM country WHERE id = $1")
-        # for i in range(49, 52, 1):
-        #     delete(i)
-        pass
-
-    def dropCollumn(self, collumnName):
-        # drop = db_traindb.prepare("ALTER TABLE country DROP COLUMN country3")
-        # drop("country3")
-        # drop("country4")
-
-        # for i in range(3,4,1):
-        #     drop("country"+str(i))
-        pass
-
-    def dropTable(self, tableName):
-        # db_traindb.execute("DROP TABLE employee")
-        pass
-
-    def addCollumn(self, tableName, collumnName):
-        # try:
-        #     db_traindb.execute("ALTER TABLE country ADD COLUMN country text")
-        # except Exception as err:
-        #     print("Oops! Something was wrong. Try again...", err)
-        pass
+    # def selectData(self, nameID):
+    #     # sel = db_traindb.query("SELECT * FROM public.users")
+    #
+    #     # sel = db_traindb.query("SELECT users.user_name AS usr, users.salary, city.city AS ct, country.country AS cntr "
+    #     #                        "FROM public.users "
+    #     #                        "LEFT OUTER JOIN city ON users.id_city = city.id "
+    #     #                        "LEFT OUTER JOIN country ON city.id_country = country.id "
+    #     #                        "ORDER BY salary;")
+    #     # print(db_traindb.query('select * from country'))
+    #
+    #     # print(db_traindb.query("SELECT * FROM public.country AS cnt, public.city AS ct, public.users AS usr "
+    #     #                          "WHERE (cnt.id = ct.id_country AND usr.id_city = ct.id)"))
+    #
+    #     # sel = db_traindb.query("SELECT country, city, user_name, salary "
+    #     #                        "FROM public.country AS cnt, public.city AS ct, public.users AS usr "
+    #     #                        "WHERE cnt.id = ct.id_country AND ct.id = usr.id_city "
+    #     #                        "ORDER BY user_name")
+    #     pass
+    #
+    # def deleteData(self, nameID):
+    #     # delete = db_traindb.prepare("DELETE FROM country WHERE id = $1")
+    #     # for i in range(49, 52, 1):
+    #     #     delete(i)
+    #     pass
+    #
+    # def dropCollumn(self, collumnName):
+    #     # drop = db_traindb.prepare("ALTER TABLE country DROP COLUMN country3")
+    #     # drop("country3")
+    #     # drop("country4")
+    #
+    #     # for i in range(3,4,1):
+    #     #     drop("country"+str(i))
+    #     pass
+    #
+    # def dropTable(self, tableName):
+    #     # db_traindb.execute("DROP TABLE employee")
+    #     pass
+    #
+    # def addCollumn(self, tableName, collumnName):
+    #     # try:
+    #     #     db_traindb.execute("ALTER TABLE country ADD COLUMN country text")
+    #     # except Exception as err:
+    #     #     print("Oops! Something was wrong. Try again...", err)
+    #     pass
 
 #----------------------------------------------------------------------------------#
 

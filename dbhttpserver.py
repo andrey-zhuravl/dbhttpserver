@@ -3,7 +3,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 import json
-# from mycontroller import MyController
+from mycontroller import MyController
 
 hostName = "localhost"
 hostPort = 9920
@@ -28,22 +28,24 @@ class MyServer(BaseHTTPRequestHandler):
         cont_len = int(self.headers["Content-Length"])
         bodyBytes = self.rfile.read(cont_len)
         bodyJson = json.loads(bodyBytes)
+
         print("bodyJson = ", bodyJson)
         print("send_response = ", self.send_response(200))
-        print("path = ", self.path)
         print("client_address = ", self.client_address)
         print("server = ", self.server)
         print("command = ", self.command)
+
         print("headers = ", self.headers)
+        print("path = ", self.path)
+
         print("server_version = ", self.server_version)
         print("address_string() = ", self.address_string())
-        print("version_string() = ", self.version_string())
         print("log_request() = ", self.log_request())
         print("send_response() = ", self.send_response(200))
 
-        # myController = MyController()
-        # myController.requestsToDB(path, bodyJson)
-        # self.wfile.write(bytes(path, "utf-8"))
+        myController = MyController()
+        myController.requestsToDB(self.path, bodyJson)
+        # self.wfile.write(bytes(self.path, "utf-8"))
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
