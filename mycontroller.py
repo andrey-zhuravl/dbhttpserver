@@ -17,14 +17,14 @@ class MyController:
         if header[1] == "users":
             userID = header[3]
             if header[2] == "insert":
-                print("  header[1]  = ", header[1])
-                print("  header[2]  = ", header[2])
-                print("  header[3]  = ", header[3])
+                print("  Class MyController, if header == users-insert, header[1]  = ", header[1])
+                print("  Class MyController, if header == users-insert, header[2]  = ", header[2])
+                print("  Class MyController, if header == users-insert, header[3]  = ", header[3])
                 self.userInsert(userID)
             elif header[2] == "update":
-                print("  header[1]  = ", header[1])
-                print("  header[2]  = ", header[2])
-                print("  header[3]  = ", header[3])
+                print("  Class MyController, if header == users-update, header[1]  = ", header[1])
+                print("  Class MyController, if header == users-update, header[2]  = ", header[2])
+                print("  Class MyController, if header == users-update, header[3]  = ", header[3])
                 self.userUpdate(userID)
             # elif header[2] == "select":
             #     self.userSelect(userID)

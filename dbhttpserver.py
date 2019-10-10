@@ -27,9 +27,10 @@ class MyServer(BaseHTTPRequestHandler):
 
         cont_len = int(self.headers["Content-Length"])
         bodyBytes = self.rfile.read(cont_len)
-        bodyJson = json.loads(bodyBytes)
+        # bodyJson = json.loads(bodyBytes)
 
-        print("bodyJson = ", bodyJson)
+        # print("bodyJson = ", bodyJson)
+        print("bodyBytes = ", bodyBytes)
         print("send_response = ", self.send_response(200))
         print("client_address = ", self.client_address)
         print("server = ", self.server)
@@ -44,7 +45,8 @@ class MyServer(BaseHTTPRequestHandler):
         print("send_response() = ", self.send_response(200))
 
         myController = MyController()
-        myController.requestsToDB(self.path, bodyJson)
+        # myController.requestsToDB(self.path, bodyJson)
+        myController.requestsToDB(self.path, bodyBytes)
         # self.wfile.write(bytes(self.path, "utf-8"))
 
 
