@@ -22,15 +22,17 @@ class MyServer(BaseHTTPRequestHandler):
 
     def do_POST(self):
         self.send_response(200)
-        self.send_header("Content-type", "text/html")
+        self.send_header("application/json", "text/json")
         self.end_headers()
 
         cont_len = int(self.headers["Content-Length"])
-        bodyBytes = self.rfile.read(cont_len)
-        # bodyJson = json.loads(bodyBytes)
 
-        # print("bodyJson = ", bodyJson)
+        bodyBytes = self.rfile.read(cont_len)
         print("bodyBytes = ", bodyBytes)
+
+        bodyJson = json.loads(bodyBytes)
+        print("bodyJson = ", bodyJson)
+
         print("send_response = ", self.send_response(200))
         print("client_address = ", self.client_address)
         print("server = ", self.server)
@@ -47,7 +49,10 @@ class MyServer(BaseHTTPRequestHandler):
         myController = MyController()
         # myController.requestsToDB(self.path, bodyJson)
         myController.requestsToDB(self.path, bodyBytes)
-        # self.wfile.write(bytes(self.path, "utf-8"))
+        # self.wfile.write(bodyBytes)
+        self.wfile.write(bodyBytes)
+        # self.wfile.write(bodyBytes)
+        # self.wfile.write(bytes(" /////// bodyBUBUBytes  ", "utf-8"))
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)
