@@ -7,11 +7,11 @@ class MyController:
     def __init__(self):
         self.dataAccessObject = DAO()
 
-    def requestsToDB(self, path, bodyJson):
+    def requestsToDB(self, path, body):
         header = path.split("/")
         # data = bodyJson.dumps(body)
-        print("    RRR  bodyJson - body.json() = ", bodyJson)
-        print("    RRR  тип данных - body.json() = ", type(bodyJson))
+        print("    RRR  bodyJson - body.json() = ", body)
+        print("    RRR  тип данных - body.json() = ", type(body))
         print("    RRR  request = ", header)
 
         if header[1] == "users":
