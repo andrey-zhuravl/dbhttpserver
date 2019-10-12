@@ -7,11 +7,11 @@ class MyController:
     def __init__(self):
         self.dataAccessObject = DAO()
 
-    def requestsToDB(self, path, body):
+    def requestsToDB(self, path, bodyJson):
         header = path.split("/")
         # data = bodyJson.dumps(body)
-        print("    RRR  bodyJson - body.json() = ", body)
-        print("    RRR  тип данных - body.json() = ", type(body))
+        print("    RRR  bodyJson - body.json() = ", bodyJson)
+        print("    RRR  тип данных - body.json() = ", type(bodyJson))
         print("    RRR  request = ", header)
 
         if header[1] == "users":
@@ -30,7 +30,7 @@ class MyController:
             #     self.userSelect(userID)
             # elif header[2] == "delete":
             #     self.userDelete(userID)
-        return path, body
+        return path, bodyJson
 
 
     def userInsert(self, userID):
@@ -41,6 +41,15 @@ class MyController:
 
     def userSelect(self, userID):
         self.dataAccessObject.selectData(userID)
+
+    # def userInsert(self, header):
+    #     print("def userInsert - ", str(header) + "userInsert")
+    #
+    # def userUpdate(self, header):
+    #     print("def userUpdate - ", str(header) + "userUpdate")
+    #
+    # def userSelect(self, header):
+    #     print("def userSelect - ", str(header) + "userSelect")
 
     # def userDelete(self, userID):
     #     self.dataAccessObject.deleteData(userID)

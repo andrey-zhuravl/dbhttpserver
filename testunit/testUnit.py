@@ -7,59 +7,57 @@ from dao import DAO
 
 class myTestHTTPServer(unittest.TestCase):
 
-#     def test_HTTPServerPostMyServerCODE200(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         self.assertEqual(req.status_code, codeSuccessful)
-#
-#     def test_HTTPServerPostMyServerURL(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         self.assertEqual(req.url, myURL+myPath)
-#
-#     def test_HTTPServerPostMyServerPath(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         path = req.text.split("?")[1]
-#         self.assertEqual(path, myPath)
-#
-#     def test_HTTPServerPostMyServerBody(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         body = req.text.split("?")[0]
-#         self.assertEqual(body, json.dumps(myBody))
-#
-# #==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==#
-#
-#     def test_HTTPServerGetMyServerCODE200(self):
-#         (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
-#         req = requests.get(myURL+myPath)
-#         print(" Get200 = ", req.status_code)
-#         self.assertEqual(req.status_code, codeSuccessful)
-#
-#     def test_HTTPServerGetMyServerURL(self):
-#         (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
-#         req = requests.get(myURL+myPath)
-#         print(" GetURL = ", req.url)
-#         self.assertEqual(req.url, myURL+myPath)
-#
-#     def test_HTTPServerGetMyServerPath(self):
-#         (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
-#         req = requests.get(myURL+myPath)
-#         path = req.text
-#         print(" GetPath = ", path)
-#         self.assertEqual(path, myPath)
+    def test_HTTPServerPostMyServerCODE200(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        self.assertEqual(req.status_code, codeSuccessful)
+
+    def test_HTTPServerPostMyServerURL(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        self.assertEqual(req.url, myURL+myPath)
+
+    def test_HTTPServerPostMyServerPath(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        path = req.text.split("?")[1]
+        self.assertEqual(path, myPath)
+
+    def test_HTTPServerPostMyServerBody(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        body = req.text.split("?")[0]
+        self.assertEqual(body, json.dumps(myBody))
+
+#==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==#
+
+    def test_HTTPServerGetMyServerCODE200(self):
+        (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
+        req = requests.get(myURL+myPath)
+        print(" Get200 = ", req.status_code)
+        self.assertEqual(req.status_code, codeSuccessful)
+
+    def test_HTTPServerGetMyServerURL(self):
+        (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
+        req = requests.get(myURL+myPath)
+        print(" GetURL = ", req.url)
+        self.assertEqual(req.url, myURL+myPath)
+
+    def test_HTTPServerGetMyServerPath(self):
+        (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
+        req = requests.get(myURL+myPath)
+        path = req.text
+        print(" GetPath = ", path)
+        self.assertEqual(path, myPath)
 
 #==MyController==MyController==MyController==MyController==MyController==MyController==#
 
     def test_HTTPServerPostMyControllerUserInsert(self):
         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-        resp = MyController()
-        resp.requestsToDB(req.url, None)
 
-        path = req.text.split("?")[1]
-        print("тест путь = ", path)
+        resp = MyController()
+        resp.requestsToDB(req.url.split("/"))
         # остаток пути      /insert/9
         # название функции  /userInsert
         self.assertEqual(req.status_code, codeSuccessful)
@@ -125,14 +123,14 @@ class myTestHTTPServer(unittest.TestCase):
 
 myTest = myTestHTTPServer()
 
-# myTest.test_HTTPServerPostMyServerCODE200()
-# myTest.test_HTTPServerPostMyServerURL()
-# myTest.test_HTTPServerPostMyServerPath()
-# myTest.test_HTTPServerPostMyServerBody()
-#
-# myTest.test_HTTPServerGetMyServerCODE200()
-# myTest.test_HTTPServerGetMyServerURL()
-# myTest.test_HTTPServerGetMyServerPath()
+myTest.test_HTTPServerPostMyServerCODE200()
+myTest.test_HTTPServerPostMyServerURL()
+myTest.test_HTTPServerPostMyServerPath()
+myTest.test_HTTPServerPostMyServerBody()
+
+myTest.test_HTTPServerGetMyServerCODE200()
+myTest.test_HTTPServerGetMyServerURL()
+myTest.test_HTTPServerGetMyServerPath()
 
 
 if __name__ == '__main__':
