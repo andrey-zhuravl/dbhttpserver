@@ -9,25 +9,27 @@ from dao import DAO
 class myTestHTTPServer(unittest.TestCase):
 
     def test_HTTPServerPostMyServerCODE200(self):
-        (myURL, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-        req = requests.post(myURL, json=myBody, headers=myHeader)
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
         self.assertEqual(req.status_code, codeSuccessful)
 
     def test_HTTPServerPostMyServerURL(self):
-        (myURL, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-        req = requests.post(myURL, json=myBody, headers=myHeader)
-        self.assertEqual(req.url, myURL)
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        self.assertEqual(req.url, myURL+myPath)
 
-#     def test_HTTPServerPostMyServerPath(self):
-#         (myURL, myBody, myHeader, codeSuccessful) = fx.fixturePostPath(9)
-#         req = requests.post(myURL, json=myBody, headers=myHeader)
-#         path = req.url.split("/")[3:6]
-#         responseFromHTTP = MyController()
-#         responseFromHTTP.requestsToDB(req.url.split("/"))
-#         self.assertEqual(req.url, myURL)
-#         self.assertEqual(path, myURL.split("/")[3:6])
-#         self.assertEqual(path, myURL.split("/")[3:6])
-#
+    def test_HTTPServerPostMyServerPath(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        path = req.text.split("?")[1]
+        self.assertEqual(path, myPath)
+
+    def test_HTTPServerPostMyServerBody(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        body = req.text.split("?")[0]
+        self.assertEqual(body, json.dumps(myBody))
+
 #     def test_HTTPServerPostMyServerHeaders(self):
 #         (myURL, myBody, myHeader) = fx.fixturePostPath(9)
 #         req = requests.post(myURL, json=myBody, headers=myHeader)
@@ -39,10 +41,6 @@ class myTestHTTPServer(unittest.TestCase):
 #         self.assertEqual(req.url, myURL)
 #         self.assertEqual(path, myURL.split("/")[3:6])
 #         self.assertEqual(path, myURL.split("/")[3:6])
-#
-#     def test_HTTPServerPostMyServerBody(self):
-#
-#         pass
 #
 #     def test_HTTPServerPostMyControllerUserInsert(self):
 #         # остаток пути      /insert
@@ -125,7 +123,14 @@ class myTestHTTPServer(unittest.TestCase):
     # 2. тело в формате json
     # 3. заголовки)
 
-# myTest = myTestHTTPServer()
+myTest = myTestHTTPServer()
+
+myTest.test_HTTPServerPostMyServerCODE200()
+myTest.test_HTTPServerPostMyServerURL()
+myTest.test_HTTPServerPostMyServerPath()
+myTest.test_HTTPServerPostMyServerBody()
+
+
 #
 # myTest.test_HTTPServerCODE200()
 # myTest.test_HTTPServerPath()
