@@ -59,7 +59,7 @@ class myTestHTTPServer(unittest.TestCase):
         resp.requestsToDB(req.url, None)
 
         path = req.text.split("?")[1]
-        print("тест path = ", path)
+        print("тест путь = ", path)
         # остаток пути      /insert/9
         # название функции  /userInsert
         self.assertEqual(req.status_code, codeSuccessful)
