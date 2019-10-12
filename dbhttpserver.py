@@ -26,7 +26,6 @@ class MyServer(BaseHTTPRequestHandler):
         self.end_headers()
 
         cont_len = int(self.headers["Content-Length"])
-
         bodyBytes = self.rfile.read(cont_len)
         print("bodyBytes = ", bodyBytes)
 
@@ -37,22 +36,27 @@ class MyServer(BaseHTTPRequestHandler):
         print("client_address = ", self.client_address)
         print("server = ", self.server)
         print("command = ", self.command)
-
         print("headers = ", self.headers)
-        print("path = ", self.path)
 
+        print("path = ", self.path)
         print("server_version = ", self.server_version)
         print("address_string() = ", self.address_string())
-        print("log_request() = ", self.log_request())
-        print("send_response() = ", self.send_response(200))
+        print("\n")
 
         myController = MyController()
         # myController.requestsToDB(self.path, bodyJson)
         myController.requestsToDB(self.path, bodyBytes)
-        # self.wfile.write(bodyBytes)
+
+        # req.content   =  b'   ....
+        # req.text      =       ....
+
         self.wfile.write(bodyBytes)
+        self.wfile.write(bytes("?", "utf-8"))
+        self.wfile.write(bytes(str(self.path), "utf-8"))
+
+        # self.wfile.write(self.path)
+
         # self.wfile.write(bodyBytes)
-        # self.wfile.write(bytes(" /////// bodyBUBUBytes  ", "utf-8"))
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)

@@ -11,16 +11,17 @@ for i in dir(req):
     print(i)
 print('\n', "=======================", '\n')
 
-print("2", req._content_consumed)   #
-print("7", req.content)             #
-print("9", req.elapsed)             #
-print("11", req.headers)            #
-print("23", req.reason)             #
-print("24", req.request)            #
-print("25", req.status_code)        #
-print("26", req.text)               #
-print("27", req.json())             #
-
+print("02  req._content_consumed = ", req._content_consumed)   #
+print("11  req.headers = ", req.headers)            #
+print("25  req.status_code = ", req.status_code)        #
+print("26  req.text = ", req.text)               #
+print("07  req.content = ", req.content)             #
+# print("27", req.json())             #
+print("28  req.url = ", req.url)             #
+body = req.text.split("?")[0]
+path = req.text.split("?")[1]
+print(body)
+print(path)
 
 
 

@@ -38,10 +38,10 @@ class MyController:
 
     def userUpdate(self, userID):
         self.dataAccessObject.updateData(userID)
-    #
-    # def userSelect(self, userID):
-    #     self.dataAccessObject.selectData(userID)
-    #
+
+    def userSelect(self, userID):
+        self.dataAccessObject.selectData(userID)
+
     # def userDelete(self, userID):
     #     self.dataAccessObject.deleteData(userID)
     #
