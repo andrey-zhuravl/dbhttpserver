@@ -5,7 +5,6 @@ import requests
 import json
 from dao import DAO
 
-
 class myTestHTTPServer(unittest.TestCase):
 
     def test_HTTPServerPostMyServerCODE200(self):
