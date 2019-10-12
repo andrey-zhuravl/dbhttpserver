@@ -8,11 +8,15 @@ class MyController:
         self.dataAccessObject = DAO()
 
     def requestsToDB(self, path, bodyJson):
+        print('path = ', path)
+
         header = path.split("/")
-        # data = bodyJson.dumps(body)
+        lastPath = str(header[2]) + str("/") + str(header[3])
+        print("lastPath = ", lastPath)
+        print(" header = path.split(/) = ", header)
+
         print("    RRR  bodyJson - body.json() = ", bodyJson)
         print("    RRR  тип данных - body.json() = ", type(bodyJson))
-        print("    RRR  request = ", header)
 
         if header[1] == "users":
             userID = header[3]
@@ -20,12 +24,12 @@ class MyController:
                 print("  Class MyController, if header == users-insert, header[1]  = ", header[1])
                 print("  Class MyController, if header == users-insert, header[2]  = ", header[2])
                 print("  Class MyController, if header == users-insert, header[3]  = ", header[3])
-                self.userInsert(userID)
+                self.userInsert(lastPath)
             elif header[2] == "update":
                 print("  Class MyController, if header == users-update, header[1]  = ", header[1])
                 print("  Class MyController, if header == users-update, header[2]  = ", header[2])
                 print("  Class MyController, if header == users-update, header[3]  = ", header[3])
-                self.userUpdate(userID)
+                self.userUpdate(lastPath)
             # elif header[2] == "select":
             #     self.userSelect(userID)
             # elif header[2] == "delete":
@@ -33,14 +37,14 @@ class MyController:
         return path, bodyJson
 
 
-    def userInsert(self, userID):
-        self.dataAccessObject.insertData(userID)
+    def userInsert(self, lastPath):
+        print("def userInsert --- ", str(lastPath) + "/userInsert")
 
-    def userUpdate(self, userID):
-        self.dataAccessObject.updateData(userID)
-
-    def userSelect(self, userID):
-        self.dataAccessObject.selectData(userID)
+    def userUpdate(self, lastPath):
+        print("def userUpdate - ", str(lastPath) + "/userUpdate")
+    #
+    # def userSelect(self, userID):
+    #     self.dataAccessObject.selectData(userID)
 
     # def userInsert(self, header):
     #     print("def userInsert - ", str(header) + "userInsert")
