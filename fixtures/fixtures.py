@@ -27,3 +27,19 @@ def fixtureHTTPPostUserUpdate(id):
     myHeader = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     answere = 'update/' + str(id) + '/userUpdate'
     return (myURL, myPath, myBody, myHeader, answere)
+
+def fixtureHTTPPostUserSelect(id):
+    myURL = 'http://localhost:9920'
+    myPath = '/users/select/'+str(id)
+    myBody = {'id_city': 1111, 'user_name': 'Sara'}
+    myHeader = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    response = 'select/' + str(id) + '/userSelect'
+    return (myURL, myPath, myBody, myHeader, response)
+
+def fixtureHTTPPostUserDelete(id):
+    myURL = 'http://localhost:9920'
+    myPath = '/users/delete/'+str(id)
+    myBody = {'id_city': 1111, 'user_name': 'Sara'}
+    myHeader = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    answere = 'delete/' + str(id) + '/userDelete'
+    return (myURL, myPath, myBody, myHeader, answere)
