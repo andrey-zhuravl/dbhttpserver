@@ -8,29 +8,21 @@ class MyController:
         self.dataAccessObject = DAO()
 
     def requestsToDB(self, path, body):
-        print('path = ', path)
+        print('path ОТ СЕРВЕРА = ', path)
 
         pathSplit = path.split("/")
         lastPath = str(pathSplit[2]) + str("/") + str(pathSplit[3])
-        print("lastPath от сервера = ", lastPath)
-        print(" pathSplit = path.split(/) = ", pathSplit)
 
         if pathSplit[1] == "users":
             if pathSplit[2] == "insert":
-                print("  MyCo insert, pathSplit[1]  = ", pathSplit[1])
-                print("  MyCo insert, pathSplit[2]  = ", pathSplit[2])
-                print("  MyCo insert, pathSplit[3]  = ", pathSplit[3])
                 self.userInsert(lastPath)
             elif pathSplit[2] == "update":
-                print("  MyCo insert, update, pathSplit[1]  = ", pathSplit[1])
-                print("  MyCo insert, update, pathSplit[2]  = ", pathSplit[2])
-                print("  MyCo insert, update, pathSplit[3]  = ", pathSplit[3])
                 self.userUpdate(lastPath)
             # elif pathSplit[2] == "select":
             #     self.userSelect(userID)
             # elif pathSplit[2] == "delete":
             #     self.userDelete(userID)
-        # return path, body
+        return path, body
 
 
     def userInsert(self, lastPath):
