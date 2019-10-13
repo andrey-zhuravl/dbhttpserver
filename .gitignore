@@ -1,7 +1,8 @@
-/.git
-/__pycache__
-/dumps
-/dao.py
-/dbhttprequest.py
-/README.md
-/__init__.py
+.git
+__pycache__/
+dumps
+dao.py
+dbhttprequest.py
+README.md
+__init__.py
+.gitignore
