@@ -16,9 +16,9 @@ class MyController:
             elif pathSplit[2] == "update":
                 self.userUpdate(lastPath)
             elif pathSplit[2] == "select":
-                self.userSelect(userID)
+                self.userSelect(lastPath)
             elif pathSplit[2] == "delete":
-                self.userDelete(userID)
+                self.userDelete(lastPath)
         return path, body
 
     def userInsert(self, lastPath):

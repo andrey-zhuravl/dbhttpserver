@@ -95,13 +95,13 @@ myTest.test_HTTPServerPostMyServerCODE200()
 myTest.test_HTTPServerPostMyServerURL()
 myTest.test_HTTPServerPostMyServerPath()
 myTest.test_HTTPServerPostMyServerBody()
-
 myTest.test_HTTPServerGetMyServerCODE200()
 myTest.test_HTTPServerGetMyServerURL()
 myTest.test_HTTPServerGetMyServerPath()
-
 myTest.test_HTTPServerPostMyControllerUserInsert()
 myTest.test_HTTPServerPostMyControllerUserUpdate()
+myTest.test_HTTPServerPostMyControllerUserSelect()
+myTest.test_HTTPServerPostMyControllerUserDelete()
 
 
 if __name__ == '__main__':
