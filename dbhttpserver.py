@@ -25,9 +25,10 @@ class MyServer(BaseHTTPRequestHandler):
         myController = MyController()
         myController.requestsToDB(self.path, body)
 
-        self.wfile.write(body)
-        self.wfile.write(bytes("?", "utf-8"))
         self.wfile.write(bytes(str(self.path), "utf-8"))
+        self.wfile.write(bytes("?", "utf-8"))
+        self.wfile.write(body)
+
 
 
 myServer = HTTPServer((hostName, hostPort), MyServer)

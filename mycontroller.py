@@ -7,34 +7,30 @@ class MyController:
     def __init__(self):
         self.dataAccessObject = DAO()
 
-    def requestsToDB(self, path, bodyJson):
+    def requestsToDB(self, path, body):
         print('path = ', path)
 
-        header = path.split("/")
-        lastPath = str(header[2]) + str("/") + str(header[3])
-        print("lastPath = ", lastPath)
-        print(" header = path.split(/) = ", header)
+        pathSplit = path.split("/")
+        lastPath = str(pathSplit[2]) + str("/") + str(pathSplit[3])
+        print("lastPath от сервера = ", lastPath)
+        print(" pathSplit = path.split(/) = ", pathSplit)
 
-        print("    RRR  bodyJson - body.json() = ", bodyJson)
-        print("    RRR  тип данных - body.json() = ", type(bodyJson))
-
-        if header[1] == "users":
-            userID = header[3]
-            if header[2] == "insert":
-                print("  Class MyController, if header == users-insert, header[1]  = ", header[1])
-                print("  Class MyController, if header == users-insert, header[2]  = ", header[2])
-                print("  Class MyController, if header == users-insert, header[3]  = ", header[3])
+        if pathSplit[1] == "users":
+            if pathSplit[2] == "insert":
+                print("  MyCo insert, pathSplit[1]  = ", pathSplit[1])
+                print("  MyCo insert, pathSplit[2]  = ", pathSplit[2])
+                print("  MyCo insert, pathSplit[3]  = ", pathSplit[3])
                 self.userInsert(lastPath)
-            elif header[2] == "update":
-                print("  Class MyController, if header == users-update, header[1]  = ", header[1])
-                print("  Class MyController, if header == users-update, header[2]  = ", header[2])
-                print("  Class MyController, if header == users-update, header[3]  = ", header[3])
+            elif pathSplit[2] == "update":
+                print("  MyCo insert, update, pathSplit[1]  = ", pathSplit[1])
+                print("  MyCo insert, update, pathSplit[2]  = ", pathSplit[2])
+                print("  MyCo insert, update, pathSplit[3]  = ", pathSplit[3])
                 self.userUpdate(lastPath)
-            # elif header[2] == "select":
+            # elif pathSplit[2] == "select":
             #     self.userSelect(userID)
-            # elif header[2] == "delete":
+            # elif pathSplit[2] == "delete":
             #     self.userDelete(userID)
-        return path, bodyJson
+        # return path, body
 
 
     def userInsert(self, lastPath):
@@ -46,14 +42,14 @@ class MyController:
     # def userSelect(self, userID):
     #     self.dataAccessObject.selectData(userID)
 
-    # def userInsert(self, header):
-    #     print("def userInsert - ", str(header) + "userInsert")
+    # def userInsert(self, pathSplit):
+    #     print("def userInsert - ", str(pathSplit) + "userInsert")
     #
-    # def userUpdate(self, header):
-    #     print("def userUpdate - ", str(header) + "userUpdate")
+    # def userUpdate(self, pathSplit):
+    #     print("def userUpdate - ", str(pathSplit) + "userUpdate")
     #
-    # def userSelect(self, header):
-    #     print("def userSelect - ", str(header) + "userSelect")
+    # def userSelect(self, pathSplit):
+    #     print("def userSelect - ", str(pathSplit) + "userSelect")
 
     # def userDelete(self, userID):
     #     self.dataAccessObject.deleteData(userID)
