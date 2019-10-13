@@ -7,71 +7,85 @@ from dao import DAO
 
 class myTestHTTPServer(unittest.TestCase):
 
-#     def test_HTTPServerPostMyServerCODE200(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         self.assertEqual(req.status_code, codeSuccessful)
-#
-#     def test_HTTPServerPostMyServerURL(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         self.assertEqual(req.url, myURL+myPath)
-#
-#     def test_HTTPServerPostMyServerPath(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         path = req.text.split("?")[0]
-#         self.assertEqual(path, myPath)
-#
-#     def test_HTTPServerPostMyServerBody(self):
-#         (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
-#         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-#         body = req.text.split("?")[1]
-#         self.assertEqual(body, json.dumps(myBody))
-#
-# #==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==#
-#
-#     def test_HTTPServerGetMyServerCODE200(self):
-#         (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
-#         req = requests.get(myURL+myPath)
-#         self.assertEqual(req.status_code, codeSuccessful)
-#
-#     def test_HTTPServerGetMyServerURL(self):
-#         (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
-#         req = requests.get(myURL+myPath)
-#         self.assertEqual(req.url, myURL+myPath)
-#
-#     def test_HTTPServerGetMyServerPath(self):
-#         (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
-#         req = requests.get(myURL+myPath)
-#         path = req.text
-#         self.assertEqual(path, myPath)
+    def test_HTTPServerPostMyServerCODE200(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        self.assertEqual(req.status_code, codeSuccessful)
+
+    def test_HTTPServerPostMyServerURL(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        self.assertEqual(req.url, myURL+myPath)
+
+    def test_HTTPServerPostMyServerPath(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        path = req.text.split("?")[0]
+        self.assertEqual(path, myPath)
+
+    def test_HTTPServerPostMyServerBody(self):
+        (myURL, myPath, myBody, myHeader, codeSuccessful) = fx.fixtureHTTPPost(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        body = req.text.split("?")[1]
+        self.assertEqual(body, json.dumps(myBody))
+
+#==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==GET==#
+
+    def test_HTTPServerGetMyServerCODE200(self):
+        (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
+        req = requests.get(myURL+myPath)
+        self.assertEqual(req.status_code, codeSuccessful)
+
+    def test_HTTPServerGetMyServerURL(self):
+        (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
+        req = requests.get(myURL+myPath)
+        self.assertEqual(req.url, myURL+myPath)
+
+    def test_HTTPServerGetMyServerPath(self):
+        (myURL, myPath, codeSuccessful) = fx.fixtureHTTPGet(9)
+        req = requests.get(myURL+myPath)
+        path = req.text
+        self.assertEqual(path, myPath)
 
 #==MyController==MyController==MyController==MyController==MyController==MyController==#
 
     def test_HTTPServerPostMyControllerUserInsert(self):
         (myURL, myPath, myBody, myHeader, response) = fx.fixtureHTTPPostUserInsert(9)
         req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
-
         path = req.text.split("?")[0]
-        body = req.text.split("?")[1]
-        print(" path === ", path)
-        print(" body === ", body)
-
         pathSplit = path.split("/")
-        lastPath = str(pathSplit[2]) + str("/") + str(pathSplit[3])
-        result = lastPath + '/userInsert'
-        print("lastPath из теста = ", lastPath)
-        print("result из теста = ", result)
+        pathRest = str(pathSplit[2]) + str("/") + str(pathSplit[3])
+        result = pathRest + '/userInsert'
 
         myController = MyController()
-        myPath = myController.requestsToDB(path, body)[0]
-        print("myPayh[0] === ", myPath)
+        pathUserInsert = myController.userInsert(pathRest)
 
-        respList = myController.userInsert(path.split("/"))
-        print('respList = ', respList)
-        print('path.split("/") = ', path.split("/"))
-        self.assertEqual(myPath + "/userInsert", response)
+        print("path из теста === ", path)
+        print("pathSplit из теста === ", pathSplit)
+        print("pathRest из теста === ", pathRest)
+        print("result из теста === ", result)
+        print('pathUserInsert = ', pathUserInsert)
+
+        self.assertEqual(pathUserInsert, response)
+
+    def test_HTTPServerPostMyControllerUserUpdate(self):
+        (myURL, myPath, myBody, myHeader, response) = fx.fixtureHTTPPostUserUpdate(9)
+        req = requests.post(myURL+myPath, json=myBody, headers=myHeader)
+        path = req.text.split("?")[0]
+        pathSplit = path.split("/")
+        pathRest = str(pathSplit[2]) + str("/") + str(pathSplit[3])
+        result = pathRest + '/userUpdate'
+
+        myController = MyController()
+        pathUserUpdate = myController.userUpdate(pathRest)
+
+        print("path из теста === ", path)
+        print("pathSplit из теста === ", pathSplit)
+        print("pathRest из теста === ", pathRest)
+        print("result из теста === ", result)
+        print('pathUserUpdate = ', pathUserUpdate)
+
+        self.assertEqual(pathUserUpdate, response)
 
 
 
@@ -136,15 +150,18 @@ class myTestHTTPServer(unittest.TestCase):
 
 myTest = myTestHTTPServer()
 
-# myTest.test_HTTPServerPostMyServerCODE200()
-# myTest.test_HTTPServerPostMyServerURL()
-# myTest.test_HTTPServerPostMyServerPath()
-# myTest.test_HTTPServerPostMyServerBody()
-#
-# myTest.test_HTTPServerGetMyServerCODE200()
-# myTest.test_HTTPServerGetMyServerURL()
-# myTest.test_HTTPServerGetMyServerPath()
-# myTest.test_HTTPServerPostMyControllerUserInsert()
+myTest.test_HTTPServerPostMyServerCODE200()
+myTest.test_HTTPServerPostMyServerURL()
+myTest.test_HTTPServerPostMyServerPath()
+myTest.test_HTTPServerPostMyServerBody()
+
+myTest.test_HTTPServerGetMyServerCODE200()
+myTest.test_HTTPServerGetMyServerURL()
+myTest.test_HTTPServerGetMyServerPath()
+myTest.test_HTTPServerPostMyControllerUserInsert()
+
+
+myTest.test_HTTPServerPostMyControllerUserUpdate()
 
 
 if __name__ == '__main__':

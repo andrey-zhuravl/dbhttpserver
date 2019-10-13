@@ -22,8 +22,8 @@ def fixtureHTTPPostUserInsert(id):
 
 def fixtureHTTPPostUserUpdate(id):
     myURL = 'http://localhost:9920'
-    myPath = '/users/insert/'+str(id)
+    myPath = '/users/update/'+str(id)
     myBody = {'id_city': 1111, 'user_name': 'Sara'}
     myHeader = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    answere = 'insert/' + str(id) + '/userUpdate'
+    answere = 'update/' + str(id) + '/userUpdate'
     return (myURL, myPath, myBody, myHeader, answere)

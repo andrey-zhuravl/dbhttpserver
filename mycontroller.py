@@ -27,10 +27,12 @@ class MyController:
 
     def userInsert(self, lastPath):
         print("def userInsert --- ", str(lastPath) + "/userInsert")
+        return str(lastPath) + "/userInsert"
 
     def userUpdate(self, lastPath):
-        print("def userUpdate - ", str(lastPath) + "/userUpdate")
-    #
+        print("def userUpdate --- ", str(lastPath) + "/userUpdate")
+        return str(lastPath) + "/userUpdate"
+
     # def userSelect(self, userID):
     #     self.dataAccessObject.selectData(userID)
 
