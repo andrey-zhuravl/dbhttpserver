@@ -12,14 +12,13 @@ class MyController:
 
         if pathSplit[1] == "users":
             if pathSplit[2] == "insert":
-                self.userInsert(lastPath)
+                return self.userInsert(lastPath)
             elif pathSplit[2] == "update":
-                self.userUpdate(lastPath)
+                return self.userUpdate(lastPath)
             elif pathSplit[2] == "select":
-                self.userSelect(lastPath)
+                return self.userSelect(lastPath)
             elif pathSplit[2] == "delete":
-                self.userDelete(lastPath)
-        return path, body
+                return self.userDelete(lastPath)
 
     def userInsert(self, lastPath):
         return str(lastPath) + "/userInsert"
